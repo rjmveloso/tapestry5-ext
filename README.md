@@ -10,26 +10,27 @@ Add `data-component-wrapper="datefield"` atribute to datefield component.
 This is used as a common strategy for other Tapestry components, which allows the dom scanner to detect new datefield components if those are inside the zone to be updated.
 
 Include this by the after render lifecycle stage
-----
+```java
 @AfterRender
 void afterRender() {
-ajaxResponseRenderer.addCallback(new JavaScriptCallback() {
-	private String getDateFormat() {
-		return "yyyy-MM-dd"; // get by locale
-	}
+	ajaxResponseRenderer.addCallback(new JavaScriptCallback() {
+		private String getDateFormat() {
+			return "yyyy-MM-dd"; // get by locale
+		}
 	
-	@Override
-	public void run(JavaScriptSupport javaScriptSupport) {
-		// format to be used by moment.js
-		String dformat = getDateFormat().toUpperCase();
-		javaScriptSupport.require("t5/mb/ext/datefieldwrapper").with(dformat, "blur");
-	}
-});
-----
+		@Override
+		public void run(JavaScriptSupport javaScriptSupport) {
+			// format to be used by moment.js
+			String dformat = getDateFormat().toUpperCase();
+			javaScriptSupport.require("t5/mb/ext/datefieldwrapper").with(dformat, "blur");
+		}
+	});
+}
+```
 
 Configure your component. Notice that events MUST match
-----
-	<input t:type="datefield" t:id="date" t:mixins="zoneupdater" t:zone="container"
-		t:clientEvent="blur" t:serverEvent="dateChanged" data-component-wrapper="datefield" />
-----
+```html
+<input t:type="datefield" t:id="date" t:mixins="zoneupdater" t:zone="container"
+	t:clientEvent="blur" t:serverEvent="dateChanged" data-component-wrapper="datefield" />
+```
 
