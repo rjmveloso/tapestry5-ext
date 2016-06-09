@@ -29,22 +29,28 @@ public class ZoneUpdater {
 	 * The element we attach ourselves to
 	 */
 	@InjectContainer
-	private ClientElement clientElement;
+	private ClientElement element;
 
 	/**
 	 * The event to listen for on the client.
 	 */
 	@Parameter(defaultPrefix = BindingConstants.LITERAL, required = true)
-	private String clientEvent;
+	private String eventType;
 
 	/**
 	 * The event to listen for in your component class
 	 * 
 	 * TODO: If not specified this will defaults to
-	 * <code>clientElement.getClientId() + clientEvent</code>
+	 * <code>element.getClientId() + $event</code>
 	 */
 	@Parameter(defaultPrefix = BindingConstants.LITERAL, required = true)
-	private String serverEvent;
+	private String event;
+
+	/**
+	 * The zone to be updated by us.
+	 */
+	@Parameter(defaultPrefix = BindingConstants.LITERAL, required = true)
+	private String zone;
 
 	/**
 	 * Context that will be made available to event handler method of this
@@ -54,20 +60,22 @@ public class ZoneUpdater {
 	private Object[] context;
 
 	/**
-	 * The zone to be updated by us.
-	 */
-	@Parameter(defaultPrefix = BindingConstants.LITERAL, required = true)
-	private String zone;
-
-	/**
 	 * Set secure to true if https is being used, else set to false.
 	 */
 	@Parameter(defaultPrefix = BindingConstants.LITERAL, value = "false")
 	private boolean secure;
 
+	String defaultEvent() {
+		return element.getClientId() + capitalize(eventType);
+	}
+
+	private String capitalize(String value) {
+		return Character.toUpperCase(value.charAt(0)) + value.substring(1);
+	}
+
 	@AfterRender
 	void afterRender() {
-		String listenerURI = componentResources.createEventLink(serverEvent, context).toAbsoluteURI(secure);
-		javaScriptSupport.require("t5/mb/ext/zoneupdater").with(clientElement.getClientId(), zone, clientEvent, listenerURI);
+		String listenerURI = componentResources.createEventLink(event, context).toAbsoluteURI(secure);
+		javaScriptSupport.require("t5/mb/ext/zoneupdater").with(element.getClientId(), zone, eventType, listenerURI);
 	}
 }
