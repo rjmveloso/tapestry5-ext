@@ -64,6 +64,6 @@ public class DateTrigger {
 	@AfterRender
 	void afterRender() {
 		String format = this.format.toUpperCase();
-		javaScriptSupport.require("t5/mb/ext/datefieldtrigger").with(format, eventType);
+		javaScriptSupport.require("t5/mb/ext/datetrigger").with(format, eventType);
 	}
 }

@@ -8,6 +8,9 @@
 		        container.parent().findFirst('button').on('click', function() {
 					datepicker = container.$;
 				});
+		        container.parent().findFirst('.glyphicon').on('click', function() {
+		        	datepicker = container.$;
+		        });
 		    });
 		});
 		
