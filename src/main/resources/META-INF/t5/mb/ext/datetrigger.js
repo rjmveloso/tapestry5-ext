@@ -14,28 +14,34 @@
 			}
 		};
 		
-		$(document).ready(function() {
-		    dom.scanner('[data-component-wrapper="datefield"]', function(container) {
-		        container.attr("data-component-wrapper", null);
-		        var button = container.parent().findFirst('button');
-		        button.$.bindFirst('click', function() {
-		        	datepicker = container.$;
-		        });
-		    });
-		});
+	    dom.scanner('[data-component-wrapper="datefield"]', function(container) {
+	        container.attr("data-component-wrapper", null);
+	        var button = container.parent().findFirst('button');
+	        button.$.bindFirst('click', function() {
+	        	datepicker = container;
+	        });
+	    });
 		
 		return function(format, event) {
 			event = event || 'change'; 
 			DatePicker.prototype.onchange = function() {
-				// datepicker.val() to ckeck fisrt use
-				if (datepicker && (!datepicker.val() || visible)) {
+				// datepicker.value() to ckeck fisrt use
+				if (!datepicker.value() || visible) {
 					var date = this.getDate();
-					var value = moment(date).format(format);
-					datepicker.trigger(event, value);
-					visible = false;
-				} else {
+					var value = exports.format(date, dformat);
+					datepicker.$.trigger('change', value);
 					visible = true;
 				}
+				
+//				// datepicker.val() to ckeck fisrt use
+//				if (datepicker && (!datepicker.val() || visible)) {
+//					var date = this.getDate();
+//					var value = exports.format(date, format);
+//					datepicker.trigger('change', value);
+//					visible = false;
+//				} else {
+//					visible = true;
+//				}
 			};
 		}
 	});
