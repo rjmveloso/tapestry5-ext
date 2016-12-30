@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.maskbit.tapestry</groupId>
 	<artifactId>tapestry-ext</artifactId>
-	<version>1.1.0</version>
+	<version>0.2.0</version>
 
 	<developers>
 		<developer>

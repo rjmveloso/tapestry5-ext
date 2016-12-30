@@ -36,12 +36,13 @@ public class DateTrigger {
 	private DateField field;
 
 	/**
-	 * Event name to be triggered when datefield value has changed
+	 * Event name to be triggered when datefield value has changed<br/>
+	 * If not specified it defaults to "change"
 	 * 
 	 * @see jQuery.trigger()
 	 */
-	@Parameter(required = true, allowNull = false, value = "change")
-	private String eventType;
+	@Parameter(value = "change", allowNull = false)
+	private String trigger;
 
 	/**
 	 * Format to be used by moment.js
@@ -64,6 +65,6 @@ public class DateTrigger {
 	@AfterRender
 	void afterRender() {
 		String format = this.format.toUpperCase();
-		javaScriptSupport.require("t5/mb/ext/datetrigger").with(format, eventType);
+		javaScriptSupport.require("t5/mb/mixins/datetrigger").with(format, trigger);
 	}
 }

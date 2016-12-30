@@ -25,23 +25,22 @@
 		return function(format, event) {
 			event = event || 'change'; 
 			DatePicker.prototype.onchange = function() {
+				// div - datefield-popup well
+				// use these two lines and remove visible = true;
+				//var dp = datepicker.$.parent().next();
+				//var visible = dp.css('display') !== 'none';
+				
 				// datepicker.value() to ckeck fisrt use
 				if (!datepicker.value() || visible) {
 					var date = this.getDate();
-					var value = exports.format(date, dformat);
-					datepicker.$.trigger('change', value);
+					var value = moment(date).format(format);
+					// use Tapestry 5.4 ElementWrapper
+					datepicker.trigger('change', {value: value});
+					//datepicker.$.trigger('change', value);
+					visible = false;
+				} else {
 					visible = true;
 				}
-				
-//				// datepicker.val() to ckeck fisrt use
-//				if (datepicker && (!datepicker.val() || visible)) {
-//					var date = this.getDate();
-//					var value = exports.format(date, format);
-//					datepicker.trigger('change', value);
-//					visible = false;
-//				} else {
-//					visible = true;
-//				}
 			};
 		}
 	});

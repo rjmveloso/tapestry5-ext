@@ -35,7 +35,7 @@ public class ZoneUpdater {
 	 * The event to listen for on the client.
 	 */
 	@Parameter(defaultPrefix = BindingConstants.LITERAL, required = true)
-	private String eventType;
+	private String on;
 
 	/**
 	 * The event to listen for in your component class
@@ -66,7 +66,7 @@ public class ZoneUpdater {
 	private boolean secure;
 
 	String defaultEvent() {
-		return element.getClientId() + capitalize(eventType);
+		return element.getClientId() + capitalize(on);
 	}
 
 	private String capitalize(String value) {
@@ -76,6 +76,6 @@ public class ZoneUpdater {
 	@AfterRender
 	void afterRender() {
 		String listenerURI = componentResources.createEventLink(event, context).toAbsoluteURI(secure);
-		javaScriptSupport.require("t5/mb/ext/zoneupdater").with(element.getClientId(), zone, eventType, listenerURI);
+		javaScriptSupport.require("t5/mb/mixins/zoneupdater").with(element.getClientId(), zone, on, listenerURI);
 	}
 }

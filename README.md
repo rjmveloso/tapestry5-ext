@@ -5,8 +5,13 @@ New datefield component is based on DatePicker and has a RequireJS wrapper which
 `datetrigger.js` detects datefield component that was changed and triggers a defined event.  
 `zoneupdater.js` allows to register an handler for the defined event and triggers a zone refresh event.
 
-## Example of usage
-Include this in the AfterRender phase
+## Example of usage: datetrigger
+Configure your component - tml.
+```html
+<input t:type="datefield" t:id="date" t:mixins="datetrigger" t:trigger="change" />
+```
+
+Configure your component - Java
 ```java
 @AfterRender
 void afterRender() {
@@ -16,9 +21,18 @@ void afterRender() {
 });
 ```
 
-Configure your component.
+## Example of usage: zoneupdater
+Configure your component - tml.
 ```html
-<input t:type="datefield" t:id="date" t:mixins="[datetrigger,zoneupdater]"
-	t:eventType="change" t:event="dateChanged" t:zone="container" />
+<input t:type="datefield" t:id="date" t:mixins="zoneupdater"
+	t:on="change" t:event="valueChangedFromDate" t:zone="container" />
 ```
 
+Configure your component - Java
+```java
+@OnEvent(value = "valueChangedFromDate")
+void onValueChangedFromDate() {
+	String value = request.getParameter("value");
+	...
+}
+```
