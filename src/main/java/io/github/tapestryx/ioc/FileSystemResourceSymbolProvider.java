@@ -1,4 +1,4 @@
-package net.maskbit.tapestry.ioc;
+package io.github.tapestryx.ioc;
 
 import java.net.MalformedURLException;
 import java.net.URL;

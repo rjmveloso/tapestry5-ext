@@ -1,4 +1,4 @@
-package net.maskbit.tapestry.mixins;
+package io.github.tapestryx.mixins;
 
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.ClientElement;
@@ -76,6 +76,6 @@ public class ZoneUpdater {
 	@AfterRender
 	void afterRender() {
 		String listenerURI = componentResources.createEventLink(event, context).toAbsoluteURI(secure);
-		javaScriptSupport.require("t5/mb/mixins/zoneupdater").with(element.getClientId(), zone, on, listenerURI);
+		javaScriptSupport.require("tapestryx/mixins/zoneupdater").with(element.getClientId(), zone, on, listenerURI);
 	}
 }

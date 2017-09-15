@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.maskbit.tapestry</groupId>
 	<artifactId>tapestry-ext</artifactId>
-	<version>0.2.0</version>
+	<version>0.3.0</version>
 
 	<developers>
 		<developer>
@@ -33,4 +33,23 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<tapestry-module-classes>
+								io.github.tapestryx.services.XtensionModule
+							</tapestry-module-classes>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
